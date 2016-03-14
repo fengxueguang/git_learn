@@ -1,0 +1,70 @@
+# 初始化命令
+
+    git --version
+    #进入目录
+    cd /data/git/
+    git clone https://github.com/fengxueguang/git_learn.git   
+
+    #查看用户名和email
+    git config user.name
+    git config user.email
+    #设置用户名和email
+    git config global user.name xiaoming
+    git config global user.email xiaoming@360.cn
+
+    #设置命令输出开启颜色显示
+    git config --global color.ui true
+
+    # 完成后会在 /data/git/ 建立一个目录 git_learn
+    echo "git_learn" >> README.md
+    git add README.md
+    git commit -m "first commit2"
+    #写错了注释
+    git commit --amend -m "first commit"
+
+    # 把提交的推送过去
+    git push  
+
+
+#冲突
+    #制造一个冲突
+    echo "a" >> both.txt
+    git add both.txt
+    git commit -m "both"
+    git push
+    #修改both.txt的第一行
+    git add both.txt
+    git commit -m "both user1"  #不要push过去
+
+    #user2 克隆
+    cd /data/git/
+    git clone https://github.com/fengxueguang/git_learn.git   git_learn2
+    cd git_learn2
+    #修改both.txt的第一行  和 user1不一样
+    git add both.txt
+    git commit -m "both user2"  #不要push过去
+
+    #然后可以在git_learn 目录推送过去没问题
+    git push
+    #然后可以在git_learn2 目录推送过去没问题
+    git push    #说是远端比本地的新 然后用
+
+    git pull   # 因为两个人共同修改了同一个文件的同一行所以有了冲突  红色的  both modified:   both.txt
+
+
+    #打开文件内容看到
+
+        <<<<<<< HEAD
+    初始化文件, 我是用户2,我修改了一些东西
+    =======
+    初始化文件,用户1添加了一些东西
+    >>>>>>> 309c0591144a0113fd01b464ab406ee5c011bed6
+
+    #自己编辑编辑,
+    git add both.txt
+    git cm "解决冲突"
+    git push
+
+
+
+
